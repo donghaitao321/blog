@@ -8,15 +8,15 @@
 
 1. 安装插件 Prettier  
    在应用商店搜索
-   <img src="/_media/Prettier.png" width="800px" height="200px" alt="Prettier" />
+   <img src="_media/Prettier.png" width="800px" height="200px" alt="Prettier" />
 
 2. 配置默认格式化工具  
    打开快速搜索界面(ctrl + ,)，搜索 editor.defaultFormatter，选择 Prettier
-   <img src="/_media/editor.defaultFormatter.png" width="800px" height="200px" alt="Prettier" />
+   <img src="_media/editor.defaultFormatter.png" width="800px" height="200px" alt="Prettier" />
 
 3. 本地格式化方案设置  
    打开快速搜索界面，搜素 Format Document ，配置文件(参考)也可以打开快速搜索界面，搜索 editor.formatOnSave，选择保存时自动格式化
-   <img src="/_media/editor.formatOnSave.png" width="800px" height="200px" alt="Prettier" />
+   <img src="_media/editor.formatOnSave.png" width="800px" height="200px" alt="Prettier" />
 
 
 参考：
