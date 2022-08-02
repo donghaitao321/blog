@@ -1,5 +1,148 @@
 # JAVASCRIPT
 
+## ES6 特性
+
+### Map 与 Set
+
+#### Map
+
+Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。
+
+1. Maps 和 Objects 的区别
+
+- 键：Map 的是**任意值**，Object 的是**字符串或者 Symbols**。
+- 键顺序：Map **有序**的（FIFO 原则），Object**无序**。
+- size:Map 有 **size 属性**，Object 无。
+- Object 都有自己的原型，原型链上的键名有可能和你自己在对象上的设置的键名产生冲突。
+
+2. Map 的迭代
+
+- for...of
+
+```js
+for (var [key, value] of myMap) {
+  console.log(key + " = " + value);
+}
+for (var [key, value] of myMap.entries()) {
+  console.log(key + " = " + value);
+}
+for (var key of myMap.keys()) {
+  console.log(key);
+}
+for (var value of myMap.values()) {
+  console.log(value);
+}
+```
+
+- forEach()
+
+```js
+myMap.forEach(function (value, key) {
+  console.log(key + " = " + value);
+}, myMap);
+```
+
+4. Map 对象的操作
+
+- Map 与 Array 的转换
+
+```js
+var kvArray = [
+  ["key1", "value1"],
+  ["key2", "value2"],
+];
+
+var myMap = new Map(kvArray);
+
+var outArray = Array.from(myMap);
+```
+
+- Map 的克隆
+
+```js
+var myMap1 = new Map([
+  ["key1", "value1"],
+  ["key2", "value2"],
+]);
+var myMap2 = new Map(myMap1);
+
+console.log(original === clone);
+// 打印 false。 Map 对象构造函数生成实例，迭代出新的对象。
+```
+
+- Map 的合并
+
+```js
+var first = new Map([
+  [1, "one"],
+  [2, "two"],
+  [3, "three"],
+]);
+var second = new Map([
+  [1, "uno"],
+  [2, "dos"],
+]);
+
+// 合并两个 Map 对象时，如果有重复的键值，则后面的会覆盖前面的，对应值即 uno，dos， three
+var merged = new Map([...first, ...second]);
+```
+
+#### Set
+
+Set 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。**有序**。
+
+1. 特殊值
+
+- +0 与 -0 在存储判断唯一性的时候是恒等的，所以不重复；
+- undefined 与 undefined 是恒等的，所以不重复；
+- NaN 与 NaN 是不恒等的，但是在 Set 中只能存一个，不重复。
+
+2. 类型转换
+
+```js
+// Array 转 Set
+var mySet = new Set(["value1", "value2", "value3"]);
+// 用...操作符，将 Set 转 Array
+var myArray = [...mySet];
+String;
+// String 转 Set
+var mySet = new Set("hello"); // Set(4) {"h", "e", "l", "o"}
+// 注：Set 中 toString 方法是不能将 Set 转换成 String
+```
+
+3. 作用
+
+- 数组去重
+
+```js
+var mySet = new Set([1, 2, 3, 4, 4]);
+[...mySet]; // [1, 2, 3, 4]
+```
+
+- 并集
+
+```js
+var a = new Set([1, 2, 3]);
+var b = new Set([4, 3, 2]);
+var union = new Set([...a, ...b]); // {1, 2, 3, 4}
+```
+
+- 交集
+
+```js
+var a = new Set([1, 2, 3]);
+var b = new Set([4, 3, 2]);
+var intersect = new Set([...a].filter((x) => b.has(x))); // {2, 3}
+```
+
+- 差集
+
+```js
+var a = new Set([1, 2, 3]);
+var b = new Set([4, 3, 2]);
+var difference = new Set([...a].filter((x) => !b.has(x))); // {1}
+```
+
 ## 常见问题
 
 ## 常见算法实现
