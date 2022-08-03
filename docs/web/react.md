@@ -130,5 +130,391 @@ inputChange(e){
 }
 ```
 
+拓展运算符：
+...
 
+注意 key 值问题
+
+```jsx
+<ul>
+  {this.state.list.map((item, index) => {
+    return <li key={index + item}>{item}</li>;
+  })}
+</ul>
+```
+
+注释推荐写法：
+
+```jsx
+{
+  /* 正确注释的写法 */
+}
+```
+
+css 的 class 换成 className
+dangerouslySetInnerHTML 属性: 输入组件可以被解析
+
+```jsx
+<ul>
+  {this.state.list.map((item, index) => {
+    return (
+      <li
+        key={index + item}
+        onClick={this.deleteItem.bind(this, index)}
+        dangerouslySetInnerHTML={{ __html: item }}
+      ></li>
+    );
+  })}
+</ul>
+```
+
+JSX 中`<label>`标签
+for 换成 htmlfor
+
+```jsx
+<div>
+  <label htmlFor="jspang">加入服务：</label>
+  <input id="jspang" className="input" value={this.state.inputValue} onChange={this.inputChange.bind(this)} />
+</div>
+```
+
+### Simple React Snippets
+
+#### 快速进行引入 import
+
+```jsx
+imrc;
+import React, { Component } from "react";
+```
+
+#### 快速生成 class
+
+```jsx
+cc
+class  extends Component {
+    state = {  }
+    render() {
+        return (  );
+    }
+}
+export default ;
+```
+
+### 组件拆分
+
+### 父子组件传值
+
+- **父组件向子组件传递内容，靠属性的形式传递**
+
+```jsx
+父级
+<testItem content={item} />
+
+子级
+import React, { Component } from 'react'; //imrc
+class testItem  extends Component { //cc
+
+    render() {
+        return (
+            <div>{this.props.content}</div>
+         );
+    }
+}
+export default testItem;
+```
+
+- **子组件向父组件传递数据,靠父级向子级传递方法**
+  注意 this 的绑定
+
+```jsx
+父级
+<ul>
+    {
+        this.state.list.map((item,index)=>{
+            return (
+                <XiaojiejieItem
+                key={index+item}
+                content={item}
+                index={index}
+                //关键代码-------------------start
+                deleteItem={this.deleteItem.bind(this)}
+                //关键代码-------------------end
+                />
+            )
+        })
+    }
+</ul>
+子级
+handleClick(){
+    this.props.deleteItem(this.props.index)
+}
+```
+
+单向数据流：
+子组件无法直接修改从父组件获得的数据。只能通过传递父组件的方式。
+
+和其他框架配合使用：
+理论上可以，不建议。
+
+函数式编程：  
+好处：
+
+1. 函数式编程让我们的代码更清晰，每个功能都是一个函数。
+2. 函数式编程为我们的代码测试代理了极大的方便，更容易实现前端自动化测试。
+
+### 调试工具
+
+#### React developer tools
+
+##### 安装
+
+网上应用商店中安装
+
+##### 状态
+
+- 灰色： 不可用，页面不是又 React 编写的。
+- 黑色: React 生成环境当中。
+- 红色： React 调试环境当中。
+
+### PropTypes 校验传递值
+
+限制传递值**类型**,类似与 typescript
+
+```jsx
+import PropTypes from "prop-types";
+
+testItem.propTypes = {
+  content: PropTypes.string,
+  deleteItem: PropTypes.func,
+  index: PropTypes.number,
+};
+```
+
+**必传值**的校验
+
+```jsx
+avname: PropTypes.string.isRequired;
+```
+
+使用**默认值**
+
+```jsx
+testItem.defaultProps = {
+  avname: "枫",
+};
+```
+
+### ref 的使用
+
+```jsx
+<input
+    id="jspang"
+    className="input"
+    value={this.state.inputValue}
+    onChange={this.inputChange.bind(this)}
+    //关键代码——----------start
+    ref={(input)=>{this.input=input}}
+    //关键代码------------end
+    />
+
+inputChange(){
+    this.setState({
+        inputValue:this.input.value
+    })
+}
+```
+
+可以直接传递组件引用
+
+### 生命周期
+
+生命周期函数指在某一个时刻组件会自动调用执行的函数。  
+render()函数，就是一个生命周期函数，它在state发生改变时自动执行。
+constructor不算生命周期函数。  
+constructor我们叫构造函数，它是ES6的基本语法。虽然它和生命周期函数的性质一样，但不能认为是生命周期函数。
+但是你要心里把它当成一个生命周期函数，我个人把它看成React的Initialization阶段，定义属性（props）和状态(state)。 
+
+四大阶段：
+
+1. Initialization:初始化阶段。
+2. Mounting: 挂在阶段。
+3. Updation: 更新阶段。
+4. Unmounting: 销毁阶段
+
+#### Mounting阶段
+伴随着整个虚拟DOM的生成，它里边有三个小的生命周期函数：
+1. componentWillMount : 在组件即将被挂载到页面的时刻执行。
+2. render : 页面state或props发生变化时执行。
+3. componentDidMount : 组件挂载完成时被执行。
+
+```jsx
+componentWillMount(){
+    console.log('componentWillMount----组件将要挂载到页面的时刻')
+}
+componentDidMount(){
+    console.log('componentDidMount----组件挂载完成的时刻执行')
+}
+render(){
+    console.log('render---组件挂载中.......')
+}
+/////////  
+componentWillMount----组件将要挂载到页面的时刻执行
+render----开始挂载渲染
+componentDidMount----组件挂载完成的时刻执行
+```
+注意点：  
+componentWillMount和componentDidMount这两个生命周期函数，只在页面刷新时执行一次，而render函数是只要有state和props变化就会执行。
+
+#### update阶段
+它有两个基本部分组成，一个是props属性改变，一个是state状态改变
+里边有四个小的生命周期函数：
+1. shouldComponentUpdate： 组件更新前执行。返回布尔值。
+2. componentWillUpdate： 组件更新前执行。需shouldComponentUpdate返回true。
+3. render：开始挂载渲染
+4. componentDidUpdate：组件更新后执行。
+
+```jsx
+shouldComponentUpdate(){
+    console.log('shouldComponentUpdate---组件发生改变前执行')
+    return true
+}
+componentWillUpdate(){
+    console.log('componentWillUpdate---组件更新前，shouldComponentUpdate函数之后执行')
+}
+componentDidUpdate(){
+    console.log('componentDidUpdate----组件更新之后执行')
+}
+```
+componentWillReceiveProps 函数  
+```jsx
+componentWillReceiveProps(){
+        console.log('child - componentWillReceiveProps')
+    }
+```
+子组件接收到父组件传递过来的参数，父组件render函数重新被执行，这个生命周期就会被执行
+
+### Unmounting阶段  
+```jsx
+//当组件从页面中删除的时候执行
+componentWillUnmount(){
+    console.log('child - componentWillUnmount')
+}
+```
+
+### 生命周期改善程序性能
+使用```shouldComponentUpdate```:  
+shouldComponentUpdate有两个参数：  
+- nextProps:变化后的属性;
+- nextState:变化后的状态;  
+
+```jsx
+shouldComponentUpdate(nextProps,nextState){
+    if(nextProps.content !== this.props.content){
+        return true
+    }else{
+        return false
+    }
+
+}
+```
+
+### axios数据请求
+- 安装  
+```bash
+npm install -save axios
+```
+- 请求数据  
+建议在```componentDidMount```中使用
+```jsx
+componentDidMount(){
+    axios.post('https://web-api.juejin.im/v3/web/wbbr/bgeda')
+        .then((res)=>{console.log('axios 获取数据成功:'+JSON.stringify(res))  })
+        .catch((error)=>{console.log('axios 获取数据失败'+error)})
+}
+```
+### 接口模拟
+
+### 用CSS3实现react动画
+```react-transition-group```动画组件
+
+安装
+```bash
+npm install react-transition-group --save
+```
+三个核心库:
+1. Transition
+2. CSSTransition
+3. TransitionGroup
+
+#### CSSTransition用法
+
+```jsx
+import { CSSTransition } from 'react-transition-group'
+
+render() { 
+    return ( 
+        <div>
+            <CSSTransition 
+                in={this.state.isShow}   //用于判断是否出现的状态
+                timeout={2000}           //动画持续时间
+                classNames="boss-text"   //className值，防止重复
+                unmountOnExit            //在元素退场时，自动把DOM也删除
+            >
+                <div>BOSS级人物-孙悟空</div>
+            </CSSTransition>
+            <div><button onClick={this.toToggole}>召唤Boss</button></div>
+        </div>
+        );
+}
+```
+设置CSS
+```css
+xxx-enter: 进入（入场）前的CSS样式；
+xxx-enter-active:进入动画直到完成时之前的CSS样式;
+xxx-enter-done:进入完成时的CSS样式;
+xxx-exit:退出（出场）前的CSS样式;
+xxx-exit-active:退出动画知道完成时之前的的CSS样式。
+xxx-exit-done:退出完成时的CSS样式。
+```
+#### TransitionGroup
+负责多个DOM元素的动画
+需要```<CSSTransition>```,来定义动画
+
+```jsx
+import {CSSTransition , TransitionGroup} from 'react-transition-group'
+
+<ul ref={(ul)=>{this.ul=ul}}>
+    <TransitionGroup>
+    {
+        this.state.list.map((item,index)=>{
+            return (
+                <CSSTransition
+                    timeout={1000}
+                    classNames='boss-text'
+                    unmountOnExit
+                    appear={true}
+                    key={index+item}  
+                >
+                    <XiaojiejieItem 
+                    content={item}
+                    index={index}
+                    deleteItem={this.deleteItem.bind(this)}
+                    />
+                </CSSTransition>
+            )
+        })
+    }
+    </TransitionGroup>
+</ul>  
+<Boss />
+</Fragment>
+```
+#### npm
+- ```npm install xxx```: 安装项目到项目目录下，不会将模块依赖写入devDependencies或dependencies。
+
+- ```npm install -g xxx```: -g的意思是将模块安装到全局，具体安装到磁盘哪个位置，要看 npm cinfig prefix的位置
+
+- ```npm install -save xxx```：-save的意思是将模块安装到项目目录下，并在package文件的dependencies节点写入依赖。
+
+- ```npm install -save-dev xxx```：-save-dev的意思是将模块安装到项目目录下，并在package文件的devDependencies节点写入依赖。
 

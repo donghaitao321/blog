@@ -2,6 +2,13 @@
 
 ## ES6 特性
 
+### 列表(list)方法
+```
+.splice(index,num) 从index开始删除num项
+
+```
+### 对象(object)方法
+
 ### Map 与 Set
 
 #### Map
