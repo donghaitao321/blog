@@ -7,3 +7,5 @@
 
 [GitHub](https://github.com/donghaitao321/blog)
 [开始阅读](README.md)
+
+![color](#f0f0f0)
