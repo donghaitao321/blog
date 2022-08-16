@@ -13,3 +13,4 @@
   * [环境配置](/constituteEnv/setup.md)
 * Linux
   * [Shell](linux/shell.md)
+  * [Git](linux/git.md)
