@@ -1,11 +1,12 @@
 * 前端
-  * [JAVASCRIPT](/web/javascript.md)
-  * [XML](/web/xml.md)
-  * [React](/web/react.md)
+  * [JAVASCRIPT](/web/javascript/jsbase.md)
+  * [JAVASCRIPT-ES6](/web/javascript/jses6.md)
+  * [React](/web/react/react.md)
   * [CSS](/web/css.md)
   * [XML](web/xml.md)
   * [UI](web/ui.md)
   * [VITE](web/vite.md)
+  * [其他知识](web/tips.md)
 * 后端
   * [PYTHON](/backend/python.md)
   * [计算机网络](/backend/net.md)

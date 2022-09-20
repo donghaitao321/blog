@@ -29,6 +29,7 @@ npm -v
 
 ```
 npm install -g create-react-app
+npx create-react-app my-app
 ```
 
 3. 创建项目
@@ -782,8 +783,6 @@ function Invoice() {
 
 #### 子路由注意项
 在嵌套路由时，父路由末尾放置```*```，否则子路由比父路由长，导致无法路由。
-
-
 
 
 

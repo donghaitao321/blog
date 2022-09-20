@@ -1,4 +1,4 @@
-# VITE
+# [VITE](https://cn.vitejs.dev/guide/dep-pre-bundling.html)
 ## 背景：
 **问题点1：**  
 JavaScript 并没有提供原生机制让开发者以模块化的方式进行开发。  
@@ -58,6 +58,7 @@ npm run dev
 ```
 可以指定额外的命令行选项，如 --port 或 --https  
 
+## [设置jest](https://hung.dev/posts/jest-vite)
 
 
 
