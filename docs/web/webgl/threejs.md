@@ -72,7 +72,7 @@ function animate() {
 }
 animate();
 ```
-[完整代码](../../source/code/web/three/three.html)
+[完整代码](../../source/code/web/three/sample.html)
 
 ## 安装
 ```bash
@@ -88,3 +88,100 @@ const scene = new THREE.Scene();
 import { Scene } from 'three';
 const scene = new Scene();
 ```
+
+## [划线](../../source/code/web/three/line.html)
+切记三要素： renderer（渲染器）、scene（场景）和camera（相机）
+```js
+//基础要素初始化
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+
+const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
+camera.position.set( 0, 0, 100 );
+camera.lookAt( 0, 0, 0 );
+
+const scene = new THREE.Scene();
+// 线材质有：LineBasicMaterial 或者 LineDashedMaterial
+const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+
+//由点生成几何体
+const points = [];
+points.push( new THREE.Vector3( - 10, 0, 0 ) );
+points.push( new THREE.Vector3( 0, 10, 0 ) );
+points.push( new THREE.Vector3( 10, 0, 0 ) );
+const geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+// 生成线对象
+const line = new THREE.Line( geometry, material );
+// 添加到场景
+scene.add( line );
+renderer.render( scene, camera );
+```
+
+## 文字
+1. DOM + CSS
+```js
+<div id="info">Description</div>
+//然后使用CSS来将其绝对定位在其它具有z-index的元素之上，尤其是当你全屏运行three.js的时候。
+#info {
+	position: absolute;
+	top: 10px;
+	width: 100%;
+	text-align: center;
+	z-index: 100;
+	display:block;
+}
+```
+
+2. 将文字绘制到画布中，并将其用作Texture（纹理）
+3. 在你所喜欢的3D软件里创建模型，并导出给three.js
+4. three.js自带的文字几何体
+5. 位图字体
+
+## 3D模型载入
+### 工作流程：
+使用glTF（gl传输格式）。.GLB和.GLTF是这种格式的这两种不同版本。
+
+### 资源
+
+公共领域的glTF文件可以在网上找到，例如 [Sketchfab](https://sketchfab.com/models?features=downloadable&sort_by=-likeCount&type=models)，或者很多工具包含了glTF的导出功能：
+
+- [Blender](https://www.blender.org/) by the Blender Foundation
+- [Substance Painter](https://www.allegorithmic.com/products/substance-painter) by Allegorithmic
+- [Modo](https://www.foundry.com/products/modo) by Foundry
+- [Toolbag](https://www.marmoset.co/toolbag/) by Marmoset
+- [Houdini](https://www.sidefx.com/products/houdini/) by SideFX
+- [Cinema 4D](https://labs.maxon.net/?p=3360) by MAXON
+- [COLLADA2GLTF](https://github.com/KhronosGroup/COLLADA2GLTF) by the Khronos Group
+- [FBX2GLTF](https://github.com/facebookincubator/FBX2glTF) by Facebook
+- [OBJ2GLTF](https://github.com/AnalyticalGraphicsInc/obj2gltf) by Analytical Graphics Inc
+- …and [还有更多](http://github.khronos.org/glTF-Project-Explorer/)
+
+### 加载
+
+加载需要单独导入
+
+```js
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const loader = new GLTFLoader();
+loader.load( 'path/to/model.glb', function ( gltf ) {
+	scene.add( gltf.scene );
+}, undefined, function ( error ) {
+	console.error( error );
+} );
+```
+
+使用工具转化为js再导入
+安装工具格式  
+```npm install -g gltf-pipeline```
+转化为Draco glTF  
+```gltf-pipeline -i scene.gltf -o car.gltf -d```
+转化为js  
+```npx gltfjsx car.gltf```
+
+最后需要使用转化后的.gltf 和 .js文件
+显示需要灯光  
+```<ambientLight intensity={0.5} />```
+
