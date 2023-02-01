@@ -185,3 +185,75 @@ loader.load( 'path/to/model.glb', function ( gltf ) {
 显示需要灯光  
 ```<ambientLight intensity={0.5} />```
 
+## OrbitControls and MapControls
+### 简介
+通过控制相机，实现交互和显示
+绕X-Z轴
+
+<img src="_media/Camera_Controls.png" width="800px" height="200px" alt="Distance" />
+
+### 区别
+左右键控制旋转和移动。
+
+
+### 使用
+鼠标和触点皆可。
+
+- 基础
+```js
+import { OrbitControls } from '../js/examples/jsm/controls/OrbitControls.js';
+var controls = undefined;
+controls = new OrbitControls( camera, renderer.domElement );
+```
+- 禁止平移
+
+```js
+controls = new MapControls( camera, renderer.domElement );
+controls.enablePan = **false**;
+```
+
+- 禁止旋转
+
+```js
+controls = new MapControls( camera, renderer.domElement );
+controls.enableRotate = false;
+```
+
+- 限制最大旋转角度
+
+```js
+controls = new MapControls( camera, renderer.domElement );
+controls.maxPolarAngle = Math.PI / 2;
+```
+
+<img src="_media/Camera_Controls_rotation.png" width="800px" height="200px" alt="Distance" />
+
+- 限制相机距离范围
+
+```js
+controls = new MapControls( camera, renderer.domElement );
+controls.minDistance = 2; //Minimum distance between the camera and its target
+controls.maxDistance = 20; //Maximum distance between the camera and its target
+```
+
+<img src="_media/Camera_Controls_distance.png" width="800px" height="200px" alt="Distance" />
+
+- 阻尼设置（提高使用体验）
+
+```js
+controls = new MapControls( camera, renderer.domElement );
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+```
+
+需要使用```update```方法
+
+```js
+function render()
+{
+    controls.update();
+    renderer.render( scene, camera );
+    requestAnimationFrame( render );
+}
+```
+
