@@ -20,10 +20,17 @@ http-server . -p 8000
 ```
 
 Python server  
-```
+```bash
 //Python 2.x
 python -m SimpleHTTPServer
 
 //Python 3.x
 python -m http.server
 ```
+
+## json-server
+
+```bash
+json-server --watch _mapUIFile_TSARI_RR1.json --port 3001
+```
+
