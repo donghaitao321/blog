@@ -1,0 +1,15 @@
+@import url(https://fonts.googleapis.com/css?family=Gochi+Hand);
+
+body {
+  background-color: #d2ad96;
+  min-height: 70vh;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #494aab;
+  font-family: "Gochi Hand", cursive;
+  text-align: center;
+  font-size: 130%;
+}

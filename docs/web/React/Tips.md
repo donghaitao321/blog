@@ -277,6 +277,7 @@ const cache = {
 1. 解耦即可，我们应该让createSelector去取更稳定的数据，即便这个数据不够精准  
 2. 返回后再分别在a b两个场景中单独去加工。  
    
+
 为什么强调这一点呢？  
 要知道createSelector经常存在嵌套关系，某个selector可能是另一个selector的入参，假设上述这个不稳定的selector返回的数据又成了其它selector的参数，这就会导致多条数据源全部不稳定，这是非常糟糕的。
 
@@ -287,3 +288,9 @@ const cache = {
 
 2. react官方的插件Profiler  
 ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4075411db4644559b4e6ec63676f146f~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
+
+
+
+## useCallBack()
+
+参考：[正确使用](https://juejin.cn/post/7107943235099557896)
