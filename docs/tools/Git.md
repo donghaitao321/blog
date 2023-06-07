@@ -404,3 +404,42 @@ rspec:
 ```
 参考：
 [Gitlab CI/CD 中的 Cache 机制](https://zhuanlan.zhihu.com/p/106971627)
+
+##  配置多个git账号
+
+1. 分别生成秘钥, （选择个性化名字，不要全回车）
+
+```bash
+ssh-keygen -t rsa -C "***@***.com"
+```
+
+2. 专用秘钥添加到网页。
+3. 专用秘钥添加到高速缓存
+
+```bash
+ssh-add -k ~/.ssh/id_rsa_***
+```
+
+4. 修改配置文件```~/.ssh/config```
+
+```
+Host znqc.github.com
+HostName 10.10.80.28
+User Dong
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa_company
+
+Host donghaitao321.github.com
+HostName github.com
+User dong
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa_github
+```
+
+5. 配置局部信息
+
+```bash
+git config --local user.name ***
+git config --local user.email ***@***.com
+```
+

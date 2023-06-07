@@ -786,10 +786,13 @@ function Invoice() {
 
 
 
+## 构建 state 的原则
 
-
-
-
+1. **合并关联的 state**。
+2. **避免互相矛盾的 state**。
+3. **避免冗余的 state**。
+4. **避免重复的 state**。
+5. **避免深度嵌套的 state**。
 
 
 
