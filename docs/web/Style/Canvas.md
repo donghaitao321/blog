@@ -59,15 +59,16 @@ let ctx = canvas.getContext(contextType, contextAttributes?);
 ```js
 // 矩形
 rect(x, y, width, height);
-fillRect();
-strokeRect();
-clearRect();
+fillRect();    //绘制一个填充的矩形，填充色为当前的 fillStyle。
+strokeRect();  //绘制一个矩形的边框，边框色为当前的 strokeStyle。
+clearRect(); //擦除一个矩形区域
 
 //路径
-beginPath();
-moveTo(x, y);
-lineTo(x, y);
-closePath();
+beginPath(); //创建路径起始点
+moveTo(x, y);  //移动到指定点
+lineTo(x, y);  
+closePath(); //闭合路径
+stroke() / fill(); //描边或填充路径区域
 
 //圆弧
 arc(x, y, radius, startAngle, endAngle, anticlockwise);
@@ -158,7 +159,7 @@ drawImage(image, x, y);
 //属性
 width; //返回 ImageData 对象的宽度。
 height; //返回 ImageData 对象的高度。
-data; //	返回一个对象，其包含指定的 ImageData 对象的图像数据。
+data; //返回一个对象，其包含指定的 ImageData 对象的图像数据。
 
 //方法
 createImageData(w, h, img); //创建新的ImageData 对象。
@@ -179,3 +180,4 @@ globalCompositeOperation; //设置或返回新图像如何绘制到已有的图�
 save(); //保存当前环境的状态。
 restore(); //返回之前保存过的路径状态和属性。
 ```
+

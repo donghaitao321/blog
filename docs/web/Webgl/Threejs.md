@@ -33,6 +33,7 @@ document.body.appendChild( renderer.domElement );
 ```
 解析：
 相机有很多种，```PerspectiveCamera```为透视相机。其参数：
+
 1. 视野FOV：number
 2. 横纵比： number
 3. 近剪裁平面： number （超出就不会再显示）
@@ -209,7 +210,7 @@ controls = new OrbitControls( camera, renderer.domElement );
 
 ```js
 controls = new MapControls( camera, renderer.domElement );
-controls.enablePan = **false**;
+controls.enablePan = false;
 ```
 
 - 禁止旋转
