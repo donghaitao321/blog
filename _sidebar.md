@@ -1,5 +1,5 @@
-* 前端
-  * [Language](./docs/web/Language/README.md) 
+- 前端
+  * [Base](./docs/web/Language/README.md) 
   * [React](./docs/web/React/README.md) 
   * [ReactNative](./docs/web/ReactNative/README.md) 
   * [Style](./docs/web/Style/README.md) 
@@ -11,6 +11,8 @@
   * [Net](./docs/backend/Net/Net.md)
   * [Server](./docs/backend/Server/Server.md)
   * [CPP](./docs/backend/CPP/CPP.md)
+* 算法
+  * [Algorithm](./docs/algorithm/leetcode.md)
 * 工具
   * [Git](./docs/tools/Git.md)
   * [Prettier](./docs/tools/Prettier.md)
@@ -19,4 +21,3 @@
   * [Shell](./docs/Linux/Shell.md)
 * 其他
   * [CommonSense](./docs/other/CommonSense.md)
-
