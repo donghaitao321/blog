@@ -1,6 +1,6 @@
 # Algorithm - JS
 
-## 深比较
+## 1. 深比较
 
 ```js
 const deepCompareEquals = (obj1, obj2) => {
@@ -38,5 +38,104 @@ const arePropsEqual = (prevProps, nextProps) => {
 
 // Usage with React.memo
 const MyComponent = React.memo(SomeComponent, arePropsEqual);
+```
+
+## 2. 柯里化
+
+```js
+function curry(func) {
+  function curried(...args) {
+    return function (...args2) {
+      if (args2.length === 0) {
+        return func.apply(
+          this,
+          args.filter((arg) => typeof arg !== "function")
+        );
+      }
+      return curried.apply(this, args.concat(args2));
+    };
+  }
+  return curried;
+}
+
+function add(...args) {
+  let a = args.reduce((acc, cur) => acc + cur, 0);
+  return a;
+}
+
+const curriedAdd = curry(add);
+
+console.log(curriedAdd(1)(2)(3)());
+console.log(curriedAdd(1, 2)(3)());
+console.log(curriedAdd(1)(2, 3)());
+console.log(curriedAdd(1, 2, 3)());
+```
+
+## 3. 扁函数
+
+```js
+function add(a, b) {
+    return a + b;
+}
+
+function partial(fn, ...fixedArgs) {
+    return function(...remainingArgs) {
+        return fn.apply(this, fixedArgs.concat(remainingArgs));
+    };
+}
+
+const add5 = partial(add, 5);
+console.log(add5(10));		
+```
+
+
+
+### 复制构造函数
+
+```js
+// 原始构造函数
+function Parent(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+Parent.prototype.sayHello = function() {
+  console.log(`Hello, my name is ${this.name}`);
+};
+
+Parent.staticMethod = function() {
+  console.log('This is a static method');
+};
+
+// 复制构造函数
+function copyConstructor(originalConstructor) {
+  // 创建一个新的构造函数
+  function NewConstructor(...args) {
+      originalConstructor.apply(this, args);
+  } 
+
+  // 复制原型链
+  NewConstructor.prototype = Object.create(originalConstructor.prototype);
+  NewConstructor.prototype.constructor = NewConstructor;
+
+  // 复制静态属性和方法
+  for (let key in originalConstructor) {
+      if (originalConstructor.hasOwnProperty(key)) {
+          NewConstructor[key] = originalConstructor[key];
+      }
+  }
+
+  return NewConstructor;
+}
+
+// 使用copyConstructor复制Parent构造函数
+const ParentCopy = copyConstructor(Parent);
+
+// 验证
+const parentInstance = new ParentCopy('Alice', 30);
+parentInstance.sayHello(); // 输出：Hello, my name is Alice
+ParentCopy.staticMethod(); // 输出：This is a static method
+console.log(parentInstance instanceof ParentCopy); // true
+console.log(parentInstance instanceof Parent); // true
 ```
 
