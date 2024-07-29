@@ -35,7 +35,6 @@ docker run hello-world
 ## 拉取镜像
 
 ```bash
-
 #1
 docker pull 10.10.80.28:5000/tsari-ad
 # 如果报错HTTPS啥的,请修改/etc/docker/daemon.json文件

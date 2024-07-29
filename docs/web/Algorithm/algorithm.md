@@ -139,3 +139,28 @@ console.log(parentInstance instanceof ParentCopy); // true
 console.log(parentInstance instanceof Parent); // true
 ```
 
+## 4. 防抖、节流
+
+```js
+function debounce(func, wait, immediate) {
+  let timeout;
+  return function () {
+    let context = this;
+    let arg = arguments;
+
+    if (timeout) clearTimeout(timeout);
+    if (immediate) {
+      let callNow = !timeout;
+      timeout = setTimeout(function () {
+        timeout = null;
+      }, wait);
+      if (callNow) func.apply(context, arg);
+    } else {
+      timeout = setTimeout(function () {
+        func.apply(context, arg);
+      }, wait);
+    }
+  };
+}
+```
+
